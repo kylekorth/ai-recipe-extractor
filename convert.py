@@ -10,9 +10,11 @@ load_dotenv()
 
 # Get OpenAI API key and model from environment
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL")
 if not OPENAI_API_KEY:
     raise ValueError("Missing OpenAI API key. Add it to the .env file or set it as an environment variable.")
+if not OPENAI_MODEL:
+    raise ValueError("Missing OpenAI model. Add it to the .env file or set it as an environment variable.")
 
 # Get paths from environment variables with defaults
 PDF_FOLDER = os.getenv("PDF_FOLDER", "pdf")  # Folder containing PDFs
