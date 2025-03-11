@@ -60,6 +60,8 @@ def parse_recipe_with_ai(text):
       - Protein (g)
       - Carbohydrates (g)
       - Fat (g)
+      Look for this information anywhere in the text, including in nutrition labels, 
+      nutrition facts panels, or inline text. Convert all formats to the standard format shown below.
     - A `## Ingredients` section with ingredients formatted as `- Ingredient | Quantity | Brand/Type`
       - Remove personal pronouns or phrases like "I used" or "We recommend"
       - Convert statements like "I used Brand X" to just "Brand X"
@@ -79,12 +81,26 @@ def parse_recipe_with_ai(text):
     - Protein: 40g
     - Carbohydrates: 21g
     - Fat: 6g
+
+    Input: "Nutrition Facts
+    Serving Size 1 cup (240g)
+    Amount Per Serving
+    Calories 240
+    Total Fat 8g
+    Total Carbohydrate 37g
+    Protein 8g"
+    Output:
+    ## Macros
+    - Calories: 240
+    - Protein: 8g
+    - Carbohydrates: 37g
+    - Fat: 8g
     """
 
     response = client.chat.completions.create(
         model=OPENAI_MODEL,
         messages=[
-            {"role": "system", "content": "Extract structured recipe data as Markdown, including nutritional information."},
+            {"role": "system", "content": "Extract structured recipe data as Markdown, including nutritional information from any format (nutrition labels, inline text, etc.)."},
             {"role": "user", "content": prompt}
         ]
     )
