@@ -7,10 +7,12 @@ This script extracts recipes from PDFs and saves them as .recipe files. It uses 
 - Buy Recipes from some social media influencer and download the PDFs.
 - Edit out the pages that are not recipes.
 - Drop the PDFs into the `pdf` folder.
+- Make a copy of the `.env.example` file and name it `.env`.
+- Generate a new API key from OpenAI (https://platform.openai.com/api-keys) and add it to the `.env` file.
 
 ## Setup
 
-`brew install poppler`
+`brew install poppler` on a mac 
 
 `pip install -r requirements.txt`
 
@@ -29,6 +31,8 @@ This will extract the first and second pages of every PDF in the `pdf` folder.
 ## OpenAI
 
 You can change the OpenAI model by changing the `OPENAI_MODEL` environment variable in the `.env` file.
+
+I used GPT-4o-mini and the total cost was about $.10 for 414 recipes.
 
 # Demo Cookbook
 I added a modified version of the Foodhero cookbook to the `pdf` folder to demonstrate the recipe extraction.
