@@ -1,0 +1,5 @@
+.env
+recipeFiles/*
+pdf/*
+
+.DS_Store
