@@ -29,3 +29,10 @@ This will extract the first and second pages of every PDF in the `pdf` folder.
 ## OpenAI
 
 You can change the OpenAI model by changing the `OPENAI_MODEL` environment variable in the `.env` file.
+
+# Demo Cookbook
+I added a modified version of the Foodhero cookbook to the `pdf` folder to demonstrate the recipe extraction.
+
+I am not affiliated with Foodhero and am simply using it to demonstrate the recipe extraction. You can find out more about Foodhero [here](https://foodhero.com/).
+
+You should remove it before using the script on your own recipes.
