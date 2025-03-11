@@ -40,3 +40,5 @@ I added a modified version of the Foodhero cookbook to the `pdf` folder to demon
 I am not affiliated with Foodhero and am simply using it to demonstrate the recipe extraction. You can find out more about Foodhero [here](https://foodhero.org/).
 
 You should remove it before using the script on your own recipes.
+
+Demo output was generated with `python convert.py --start 6 --end 8`
