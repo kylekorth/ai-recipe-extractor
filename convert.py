@@ -56,47 +56,53 @@ def parse_recipe_with_ai(text):
     {text}
     ---
     Format the output as structured Markdown. Each recipe should have:
-    - A `# Recipe Title` at the top
-    - A `## Macros` section that includes any nutritional information like:
-      - Calories (cal/kcal)
-      - Protein (g)
-      - Carbohydrates (g)
-      - Fat (g)
-      Look for this information anywhere in the text, including in nutrition labels, 
-      nutrition facts panels, or inline text. Convert all formats to the standard format shown below.
-    - A `## Ingredients` section with ingredients formatted as `- Ingredient | Quantity | Brand/Type`
+    - A `# Recipe Title` at the top (in Title Case)
+    - A `## Macros` section using blockquotes for nutritional information:
+      > Calories (cal/kcal)
+      > Protein (g)
+      > Carbohydrates (g)
+      > Fat (g)
+    - A `## Ingredients` section with ingredients formatted as `- Ingredient (Brand) | Quantity | optional`
+      - Use Title Case For All Ingredient Names (Capitalize Each Main Word)
+      - Include brand/type in parentheses after the ingredient name if available
+      - Spell out all ingredient names completely (no abbreviations)
+      - Format milk types as "[Type] Milk" (e.g., "Almond Milk" not "Milk, Almond")
+      - List all ingredients, including spices and seasonings, as top-level items
+      - Never group or nest seasonings under a "Seasonings" category
+      - Mark optional ingredients with "optional" at the end of the line
+      - Use standardized measurement abbreviations as before
       - Remove personal pronouns or phrases like "I used" or "We recommend"
-      - Convert statements like "I used Brand X" to just "Brand X"
-    - A `## Instructions` section with numbered steps
-      - Keep instructions objective and direct, removing personal pronouns
+    
+    Example format:
+    # Recipe Title
+    ## Macros
+    > Calories: 290
+    > Protein: 8g
+    > Carbohydrates: 44g
+    > Fat: 9g
 
-    Return **only the structured Markdown recipes**, nothing else.
+    ## Ingredients
+    - Almond Milk (Silk Unsweetened) | 1 c
+    - Vanilla Extract | 1 tsp
+    - Protein Powder (MyProtein) | 2 scoops
+    - Oreo Thins | 2 | optional
+    - Chocolate Chips | 1 tbsp | optional
+    - Cinnamon | 1/4 tsp
+    - Salt | 1/8 tsp
 
     Example conversions:
-    Input: "1 scoop protein powder (I used 1UP brand)"
-    Output: "- Protein powder | 1 scoop | 1UP"
+    Incorrect: "- Optional Toppings (Oreo Thins) | 2"
+    Correct: "- Oreo Thins | 2 | optional"
 
-    Input: "Nutrition: 345 calories, 40g protein, 21g carbs, 6g fat"
-    Output:
-    ## Macros
-    - Calories: 345
-    - Protein: 40g
-    - Carbohydrates: 21g
-    - Fat: 6g
+    Incorrect: "- Optional Chocolate Chips | 1 tbsp"
+    Correct: "- Chocolate Chips | 1 tbsp | optional"
 
-    Input: "Nutrition Facts
-    Serving Size 1 cup (240g)
-    Amount Per Serving
-    Calories 240
-    Total Fat 8g
-    Total Carbohydrate 37g
-    Protein 8g"
-    Output:
-    ## Macros
-    - Calories: 240
-    - Protein: 8g
-    - Carbohydrates: 37g
-    - Fat: 8g
+    ## Instructions
+    1. First step
+    2. Second step
+    3. Final step
+
+    Return **only the structured Markdown recipes**, nothing else. Do not include any separators or dashes at the end of the recipe.
     """
 
     response = client.chat.completions.create(
